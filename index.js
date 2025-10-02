@@ -2,14 +2,12 @@ import http from "http"
 import { URL } from "url"
 import { readFile } from "fs/promises"
 const server = http.createServer(async(req, res)=>{
-    // const fullPath = new URL(req.url,'http:/localhost:4040');
     const fullPath = new URL(req.url, `http://${req.headers.host}`)
-    console.log(fullPath.href)
-    res.writeHead(200, {"content-type":'text/html'})
     if(req.method === "GET"){
-        let page = "home"
+        let page = "home";
         switch(req.url){
             case "/" :
+                page = "home"
             break
             case "/home" :
                 page = "home"
@@ -28,6 +26,5 @@ const server = http.createServer(async(req, res)=>{
     }else{
         res.end("error")
     }
-
 })
 server.listen(4010)
